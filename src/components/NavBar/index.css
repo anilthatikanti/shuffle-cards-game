@@ -1,0 +1,27 @@
+/* Write your code here. */
+.navContainer {
+  background-color: #ffffff30;
+  height: 70px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px 60px 0px 60px;
+}
+.logoContainer {
+  font-family: 'roboto';
+  font-weight: 600;
+  color: #ffffff;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.scoreContainer {
+  font-family: 'roboto';
+  color: #ffffff;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 200px;
+}

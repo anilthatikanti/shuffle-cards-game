@@ -4,7 +4,8 @@
   margin: 5px;
 }
 .btn {
-  border-width: 0px;
+  border-width: 1px;
+  border-color: #ffffff;
   border-radius: 10px;
   background-color: #ffffff30;
   padding: 20px;

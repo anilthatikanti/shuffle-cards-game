@@ -4,6 +4,8 @@ import EmojiCard from '../EmojiCard'
 
 import NavBar from '../NavBar'
 
+import WinOrLossCard from '../WinOrLoseCard'
+
 import './index.css'
 /* 
 Quick Tip 
@@ -30,44 +32,57 @@ class EmojiGame extends Component {
     const {selectedEmoji} = this.state
     // const {emojisList} = this.props
 
-    if (selectedEmoji.indexOf(id) === -1) {
-      if (selectedEmoji.length < 12) {
-        this.setState(prevState => ({
-          selectedEmoji: [...prevState.selectedEmoji, id],
-          score: prevState.score + 1,
-        }))
-        this.shuffledEmojisList()
-      } else {
-        this.setState(prevState => ({
-          selectedEmoji: [...prevState.selectedEmoji, id],
-          score: prevState.score + 1,
-        }))
-        return true
-      }
+    if (selectedEmoji.includes(id)) {
+      this.setState({isClicked: true})
+    } else {
+      this.shuffledEmojisList()
+      this.setState(prevState => ({
+        selectedEmoji: [...prevState.selectedEmoji, id],
+        score: prevState.score + 1,
+      }))
     }
-    return false
+  }
+
+  reload = () => {
+    const {score, topScore} = this.state
+    this.setState({
+      selectedEmoji: [],
+      score: 0,
+      isClicked: false,
+    })
+    if (score >= topScore) {
+      this.setState({topScore: score})
+    }
   }
 
   render() {
     const {emojisList} = this.props
-    const {topScore, score} = this.state
+    const {topScore, score, isClicked} = this.state
     const logo = 'https://assets.ccbp.in/frontend/react-js/game-logo-img.png'
     const alt = 'emoji logo'
 
     return (
       <div className="container">
         <NavBar logo={logo} alt={alt} score={score} topScore={topScore} />
-        <div className="cards">
-          <ul className="ulist">
-            {emojisList.map(eachCard => (
-              <EmojiCard
-                cardDetails={eachCard}
-                key={eachCard.id}
-                selectEmoji={this.selectEmoji}
-              />
-            ))}
-          </ul>
-        </div>
+        {isClicked ? (
+          <WinOrLossCard
+            score={score}
+            reload={this.reload}
+            topScore={topScore}
+          />
+        ) : (
+          <div className="cards">
+            <ul className="ulist">
+              {emojisList.map(eachCard => (
+                <EmojiCard
+                  cardDetails={eachCard}
+                  key={eachCard.id}
+                  selectEmoji={this.selectEmoji}
+                />
+              ))}
+            </ul>
+          </div>
+        )}
       </div>
     )
   }

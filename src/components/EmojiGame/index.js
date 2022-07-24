@@ -50,21 +50,28 @@ class EmojiGame extends Component {
       score: 0,
       isClicked: false,
     })
-    if (score >= topScore) {
+    if (score > topScore) {
       this.setState({topScore: score})
     }
   }
 
   render() {
     const {emojisList} = this.props
-    const {topScore, score, isClicked} = this.state
+    const {topScore, score, isClicked, selectedEmoji} = this.state
+    const lengthOfSelectItems = selectedEmoji.length
     const logo = 'https://assets.ccbp.in/frontend/react-js/game-logo-img.png'
     const alt = 'emoji logo'
 
     return (
       <div className="container">
-        <NavBar logo={logo} alt={alt} score={score} topScore={topScore} />
-        {isClicked ? (
+        <NavBar
+          logo={logo}
+          alt={alt}
+          score={score}
+          topScore={topScore}
+          isClicked={isClicked}
+        />
+        {isClicked || lengthOfSelectItems === 12 ? (
           <WinOrLossCard
             score={score}
             reload={this.reload}
